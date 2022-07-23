@@ -1,11 +1,11 @@
 import React from 'react';
 import {
 	Paper,
-	List,
+	//List,
 	ListItem,
 	Divider,
 	ListItemText,
-	ListItemAvatar,
+	//ListItemAvatar,
 } from '@material-ui/core';
 
 function TodoList(props) {
