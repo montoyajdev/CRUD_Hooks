@@ -10,10 +10,6 @@ function TodoApp() {
 	const { todos, addTodo, removeTodo, toggleTodo, editTodo } =
 		useTodoState(initialTodos);
 
-	useEffect(() => {
-		window.localStorage.setItem('todos', JSON.stringify(todos));
-	}, [todos]);
-
 	return (
 		<Paper
 			style={{
