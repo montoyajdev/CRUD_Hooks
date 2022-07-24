@@ -14,7 +14,6 @@ function TodoForm({ addToDo }) {
 					reset();
 				}}
 			>
-				{value}
 				<TextField
 					value={value}
 					onChange={handleChange}

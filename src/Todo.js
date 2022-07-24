@@ -10,19 +10,25 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import UndoIcon from '@material-ui/icons/Undo';
 
 function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
 	const [isEditing, toggle] = useToggleState(false);
 
 	return (
-		<ListItem>
+		<ListItem style={{ height: '64px' }}>
 			{isEditing ? (
-				<EditToDoForm
-					id={id}
-					editTodo={editTodo}
-					task={task}
-					toggleEditForm={toggle}
-				/>
+				<>
+					<EditToDoForm
+						id={id}
+						editTodo={editTodo}
+						task={task}
+						toggleEditForm={toggle}
+					/>
+					<IconButton aria-label="Edit" onClick={toggle}>
+						<UndoIcon />
+					</IconButton>
+				</>
 			) : (
 				<>
 					<Checkbox
