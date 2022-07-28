@@ -5,7 +5,7 @@ import { TodosContext } from './context/todos.context';
 import { Paper, List, Divider } from '@material-ui/core';
 
 function TodoList() {
-	const { todos } = useContext(TodosContext);
+	const todos = useContext(TodosContext);
 
 	if (todos.length)
 		return (
@@ -13,7 +13,7 @@ function TodoList() {
 				<List>
 					{todos.map((todo, i) => (
 						<>
-							<Todo {...todo} key={todo.id} />
+							<Todo key={todo.id} {...todo} />
 							{i < todos.length - 1 && <Divider />}
 						</>
 					))}
