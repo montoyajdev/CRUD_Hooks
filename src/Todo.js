@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext, memo } from 'react';
 import EditToDoForm from './EditTodoForm';
 import useToggleState from './hooks/useToggleState';
+import { DispatchContext } from './context/todos.context';
+
 import {
 	ListItem,
 	ListItemText,
@@ -12,19 +14,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import UndoIcon from '@material-ui/icons/Undo';
 
-function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
+function Todo({ id, task, completed }) {
+	const dispatch = useContext(DispatchContext);
 	const [isEditing, toggle] = useToggleState(false);
 
 	return (
 		<ListItem style={{ height: '64px' }}>
 			{isEditing ? (
 				<>
-					<EditToDoForm
-						id={id}
-						editTodo={editTodo}
-						task={task}
-						toggleEditForm={toggle}
-					/>
+					<EditToDoForm id={id} task={task} toggleEditForm={toggle} />
 					<IconButton aria-label="Edit" onClick={toggle}>
 						<UndoIcon />
 					</IconButton>
@@ -34,7 +32,7 @@ function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
 					<Checkbox
 						tabIndex={-1}
 						checked={completed}
-						onClick={() => toggleTodo(id)}
+						onClick={() => dispatch({ type: 'TOGGLE', id: id })}
 					/>
 					<ListItemText
 						style={{ textDecoration: completed ? 'line-through' : 'none' }}
@@ -42,7 +40,10 @@ function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
 						{task}
 					</ListItemText>
 					<ListItemSecondaryAction>
-						<IconButton aria-label="Delete" onClick={() => removeTodo(id)}>
+						<IconButton
+							aria-label="Delete"
+							onClick={() => dispatch({ type: 'REMOVE', id: id })}
+						>
 							<DeleteIcon />
 						</IconButton>
 						<IconButton aria-label="Edit" onClick={toggle}>
@@ -55,4 +56,4 @@ function Todo({ id, task, completed, removeTodo, toggleTodo, editTodo }) {
 	);
 }
 
-export default Todo;
+export default memo(Todo);
